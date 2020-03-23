@@ -25,7 +25,8 @@ class editBlogRequest extends FormRequest
     {
         return [
             "title"=>"required",
-            "content"=>"required"
+            "content"=>"required",
+            "img"=>"image"
         ];
     }
 
@@ -33,7 +34,8 @@ class editBlogRequest extends FormRequest
     {
         return [
             "title.required"=>"Tiêu để không được bỏ trống",
-            "content.required"=>"Nội dung không được bỏ trống"
+            "content.required"=>"Nội dung không được bỏ trống",
+            "img.image"=>"File phải là định dạng ảnh"
         ];
     }
 }
