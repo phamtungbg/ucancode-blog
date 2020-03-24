@@ -58,6 +58,12 @@ Route::group(['prefix' => 'admin','middleware'=>'CheckLogin'], function () {
         Route::post('add','backend\slideController@addSlide');
         Route::post('del','backend\slideController@delSlide');
     });
+    Route::group(['prefix' => 'footer'], function () {
+        Route::get('','backend\footerController@getFooter');
+        Route::post('','backend\footerController@postFooter');
+        Route::post('post-icon','backend\footerController@postIcon');
+        Route::post('edit-icon','backend\footerController@editIcon');
+    });
 });
 
 

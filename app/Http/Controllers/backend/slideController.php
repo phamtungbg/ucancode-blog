@@ -11,7 +11,7 @@ class slideController extends Controller
     function getSlide(){
         $data['slide'] = slide::all();
         $data['lastId'] = slide::all()->count();
-        return view ('backend.slide.slide',$data);
+        return view ('backend.setting.slide',$data);
     }
 
     function uploadSlide(request $r){

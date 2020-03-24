@@ -42,20 +42,15 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div id="about-footer">
-                    <h2 class="text-white">EDUVIE</h2>
-                    <p class="text-justify">
-                        Awesome and completely free WordPress WooCommerce themes to take your ecommerce website to
-                        the
-                        next level.
-
-                        If you are having problems with theme setup, please feel free to use Colorlib support forum.
-                    </p>
+                    <h2 class="text-white">{{$footer->title_footer}}</h2>
+                    <p class="text-justify">{!!$footer->describe_footer!!}</p>
                 </div>
                 <nav id="menu-social" class="social-icons">
                     <ul id="menu-social-items" class="social-menu">
-                        <li ><a href="#"><i class="fab fa-facebook-f"></i><span>facebook</span></a></li>
-                        <li ><a href="#"><i class="fab fa-facebook-f"></i><span>facebook</span></a></li>
-                        <li ><a href="#"><i class="fab fa-facebook-f"></i><span>facebook</span></a></li>
+                        @foreach ($icon as $item)
+                        <li ><a href="{{$item->icon_link}}">{!!$item->icon!!}</a></li>
+                        @endforeach
+
 
                     </ul>
                 </nav>
