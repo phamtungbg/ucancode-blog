@@ -4,46 +4,30 @@
 <div id="slide">
     <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-2" data-slide-to="1"></li>
-            <li data-target="#carousel-example-2" data-slide-to="2"></li>
+            @foreach ($slide as $key=>$value)
+                @if ($key==0)
+                  <li data-target="#carousel-example-2" data-slide-to="{{$key}}" class="active"></li>
+                @else
+                <li data-target="#carousel-example-2" data-slide-to="{{$key}}"></li>
+                @endif
+            @endforeach
+
         </ol>
         <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
+            @foreach ($slide as $key=>$value)
+
+            <div class="carousel-item @if ($key==0) active @endif">
                 <div class="view">
-                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg"
-                        alt="First slide">
+                    <img class="d-block w-100" src="/{{$value->slide}}"
+                        alt="">
                     <div class="mask rgba-black-light"></div>
                 </div>
                 <div class="carousel-caption">
-                    <h3 class="h3-responsive">Light mask</h3>
-                    <p>First text</p>
+                    <h3 class="h3-responsive">{{$value->mask}}</h3>
+                    <p>{{$value->text}}</p>
                 </div>
             </div>
-            <div class="carousel-item">
-                <!--Mask color-->
-                <div class="view">
-                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg"
-                        alt="Second slide">
-                    <div class="mask rgba-black-strong"></div>
-                </div>
-                <div class="carousel-caption">
-                    <h3 class="h3-responsive">Strong mask</h3>
-                    <p>Secondary text</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <!--Mask color-->
-                <div class="view">
-                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg"
-                        alt="Third slide">
-                    <div class="mask rgba-black-slight"></div>
-                </div>
-                <div class="carousel-caption">
-                    <h3 class="h3-responsive">Slight mask</h3>
-                    <p>Third text</p>
-                </div>
-            </div>
+            @endforeach
         </div>
         <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -61,15 +45,18 @@
             <div class="col-lg-8 col-md-12 col-sm-12">
                 @foreach ($blog as $item)
                 <article id="post">
+                    @if ($item->img)
                     <img src="/{{$item->img}}"
-                        alt="{{$item->title}}">
+                    alt="{{$item->title}}">
+                    @endif
+
                     <div class="post-content post-inner-content">
                         <h2>{{$item->title}}</h2>
                         <div class="info"> <span> {{$item->created_at->format('M-d-Y')}} {{$item->user->full_name}} </span></div>
                         <p class="text-justify">
                             {!!$item->describe!!}
                         </p>
-                        <a href="/blog/{{$item->slug_title}}-{{$item->id}}" class="btn btn-danger float-right">Xem thêm</a>
+                        <a href="/blog/{{$item->slug_title}}-{{$item->id}}.html" class="btn btn-danger float-right">Xem thêm</a>
                     </div>
                 </article>
                 @endforeach
@@ -93,10 +80,12 @@
                         <div class="post">
 
                             <div class="post-image ">
+
                                 <a href="/blog/{{$item->slug_title}}-{{$item->id}}.html">
                                     <img width="60" height="60"
-                                        src="/{{$item->img}}">
+                                    @if ($item->img) src="/{{$item->img}}"  @endif>
                                 </a>
+
                             </div>
 
                             <div class="post-content">

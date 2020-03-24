@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="Awesome/css/all.css">
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 
+
 </head>
 <body>
 	<!-- header -->
@@ -36,6 +37,7 @@
 	<script src="js/bootstrap.min.js"></script>
     <script src="js/chart.min.js"></script>
     <script src="js/chart-data.js"></script>
+   
     @show
 
 

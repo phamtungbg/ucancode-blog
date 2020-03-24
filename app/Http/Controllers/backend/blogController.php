@@ -37,8 +37,6 @@ class blogController extends Controller
             $fileName=$blog->slug.'.'.$blog->id.'.'.$file->extension();
             $path = $file->storeAs('upload',$fileName,'upload');
             $blog->img =  $path;
-        }else {
-            $blog->img='upload/no-img.jpg';
         }
         $blog->save();
         return redirect('/admin/blog')->with('thongBao','Đã thêm thành công');
@@ -49,8 +47,7 @@ class blogController extends Controller
         $data['categories'] = category::all();
         return view('backend.blog.editblog',$data);
     }
-    function postEditBlog(editBlogRequest $r,$blogId){
-        // dd($r->all());
+    function postEditBlog(Request $r,$blogId){
         $blog = blog::find($blogId);;
         $blog->title=$r->title;
         $blog->describe=$r->describe;
@@ -60,21 +57,30 @@ class blogController extends Controller
         $blog->cate_id=$r->category;
         $blog->user_id=Auth::user()->id;
         if ($r->hasFile('img')) {
-            if ($blog->img!='upload/no-img.jpg') {
+            if ($blog->img) {
                 unlink($blog->img);
             }
             $file = $r->img;
-            $fileName=$blog->slug.'.'.$blog->id.'.'.$file->extension();
+            $fileName=Str::slug($r->title, '-').'.'.$blog->id.'.'.$file->extension();
             $path = $file->storeAs('upload',$fileName,'upload');
             $blog->img =  $path;
-        }
+        }else{
+            if($r->title!=''){
+                $file = $blog->link_anh ;
+                // dd(pathinfo($file)['extension']);
+                $extFile =pathinfo($file)['extension'];
+                $fileName = Str::slug($r->title, '-').'-'.$blogId.'.'.$extFile;
+                rename(public_path($file),public_path('upload/'. $fileName));
+                $blog->img = 'upload/'.$fileName;
+            }
         $blog->save();
         return redirect('/admin/blog')->with('thongBao','Đã sửa thành công');
+        }
     }
 
     function delBlog($blogId){
         $blog = blog::find($blogId);
-        if ($blog->img!='upload/no-img.jpg') {
+        if ($blog->img) {
             unlink($blog->img);
         }
         $blog->delete();

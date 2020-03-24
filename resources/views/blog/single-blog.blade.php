@@ -6,8 +6,11 @@
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-sm-12">
                     <article id="post">
+                        @if ($blog->img)
                         <img src="/{{$blog->img}}"
-                            alt="{{$blog->title}}">
+                        alt="{{$blog->title}}">
+                        @endif
+
                         <div class="post-content post-inner-content">
                             <h1>{{$blog->title}}</h1>
                             <div class="info"> <span> {{$blog->created_at->format('M-d-Y')}} {{$blog->user->full_name}} </span></div>
@@ -36,7 +39,7 @@
                                 <div class="post-image ">
                                     <a href="/blog/{{$item->slug_title}}-{{$item->id}}.html">
                                         <img width="60" height="60"
-                                            src="/{{$item->img}}">
+                                        @if ($item->img) src="/{{$item->img}}  @endif">
                                     </a>
                                 </div>
 

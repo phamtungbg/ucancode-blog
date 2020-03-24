@@ -48,7 +48,7 @@
                                     <input id="img" type="file" name="img" class="form-control hidden"
                                         onchange="changeImg(this)">
                                     <img id="avatar" class="thumbnail" width="100%" height="325px"
-                                        src="/{{$blog->img}}">
+                                        @if ($blog->img) src="/{{$blog->img}}" @else src="/upload/import-img.png" @endif>
                                         {{showErrors($errors,'img')}}
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <button class="btn btn-success" name="add-product" type="submit">Sửa tin tức</button>
+                                <button class="btn btn-success" type="submit">Sửa tin tức</button>
                                 <button class="btn btn-danger" type="reset">Huỷ bỏ</button>
                             </div>
                         </div>

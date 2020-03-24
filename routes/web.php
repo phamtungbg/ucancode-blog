@@ -51,6 +51,13 @@ Route::group(['prefix' => 'admin','middleware'=>'CheckLogin'], function () {
         Route::post('edit/{userId}','backend\userController@postEditUser');
         Route::get('del/{userId}','backend\userController@delUser');
     });
+
+    Route::group(['prefix' => 'slide'], function () {
+        Route::get('','backend\slideController@getSlide');
+        Route::post('upload','backend\slideController@uploadSlide');
+        Route::post('add','backend\slideController@addSlide');
+        Route::post('del','backend\slideController@delSlide');
+    });
 });
 
 

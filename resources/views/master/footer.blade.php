@@ -4,51 +4,24 @@
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="post-feature">
                     <h3>POPULAR POSTS</h3>
+                    @foreach ($pplPost as $item)
                     <div class="post">
 
                         <div class="post-image ">
-                            <a href="https://colorlib.com/sparkling/template-pingbacks-an-trackbacks/">
+                            <a href="/blog/{{$item->slug_title}}-{{$item->id}}.html">
                                 <img width="60" height="60"
-                                    src="https://colorlib.com/sparkling/wp-content/uploads/sites/5/2014/01/city-landscape-slider-60x60.jpg">
+                                @if ($item->img) src="/{{$item->img}}" @endif >
                             </a>
                         </div>
 
                         <div class="post-content">
-                            <a href="https://colorlib.com/sparkling/template-pingbacks-an-trackbacks/">How to
-                                Use WordPress Pingbacks And Trackbacks</a>
-                            <span class="date">April 7, 2015</span>
+                            <a href="/blog/{{$item->slug_title}}-{{$item->id}}.html">{{$item->title}}</a>
+                            <span class="date"{{$item->created_at->format('M-d-Y')}}</span>
                         </div>
                     </div>
-                    <div class="post">
+                    @endforeach
 
-                        <div class="post-image ">
-                            <a href="https://colorlib.com/sparkling/template-pingbacks-an-trackbacks/">
-                                <img width="60" height="60"
-                                    src="https://colorlib.com/sparkling/wp-content/uploads/sites/5/2014/01/city-landscape-slider-60x60.jpg">
-                            </a>
-                        </div>
 
-                        <div class="post-content">
-                            <a href="https://colorlib.com/sparkling/template-pingbacks-an-trackbacks/">How to
-                                Use WordPress Pingbacks And Trackbacks</a>
-                            <span class="date">April 7, 2015</span>
-                        </div>
-                    </div>
-                    <div class="post">
-
-                        <div class="post-image ">
-                            <a href="https://colorlib.com/sparkling/template-pingbacks-an-trackbacks/">
-                                <img width="60" height="60"
-                                    src="https://colorlib.com/sparkling/wp-content/uploads/sites/5/2014/01/city-landscape-slider-60x60.jpg">
-                            </a>
-                        </div>
-
-                        <div class="post-content">
-                            <a href="https://colorlib.com/sparkling/template-pingbacks-an-trackbacks/">How to
-                                Use WordPress Pingbacks And Trackbacks</a>
-                            <span class="date">April 7, 2015</span>
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -56,38 +29,14 @@
                 <div class="category">
                     <h3>CATEGORIES</h3>
                     <ul>
+                        @foreach ($categories as $item)
                         <li class="cat-item cat-item-38"><a
-                                href="https://colorlib.com/sparkling/category/post-formats/"
-                                title="Posts in this category test post formats.">Post Formats</a>
-                            <span>16</span>
+                            href="/{{$item->slug}}-{{$item->id}}.html"
+                            title="{{$item->name}}">{{$item->name}}</a>
+                        <span>{{$item->blog->count()}}</span>
                         </li>
-                        <li class="cat-item cat-item-1"><a
-                                href="https://colorlib.com/sparkling/category/uncategorized/">Uncategorized</a>
-                            <span>10</span>
-                        </li>
-                        <li class="cat-item cat-item-49"><a
-                                href="https://colorlib.com/sparkling/category/template-2/"
-                                title="Posts with template-related tests">Template</a> <span>10</span>
-                        </li>
-                        <li class="cat-item cat-item-19"><a
-                                href="https://colorlib.com/sparkling/category/edge-case-2/"
-                                title="Posts that have edge-case related tests">Edge Case</a> <span>6</span>
-                        </li>
-                        <li class="cat-item cat-item-29"><a href="https://colorlib.com/sparkling/category/markup/"
-                                title="Posts in this category test markup tags and styles.">Markup</a>
-                            <span>6</span>
-                        </li>
-                        <li class="cat-item cat-item-193"><a
-                                href="https://colorlib.com/sparkling/category/slider/">Slider</a> <span>3</span>
-                        </li>
-                        <li class="cat-item cat-item-30"><a href="https://colorlib.com/sparkling/category/media-2/"
-                                title="Posts that have media-related tests">Media</a> <span>2</span>
-                        </li>
-                        <li class="cat-item cat-item-50"><a
-                                href="https://colorlib.com/sparkling/category/unpublished/"
-                                title="Posts in this category test unpublished posts.">Unpublished</a>
-                            <span>2</span>
-                        </li>
+
+                        @endforeach
                     </ul>
                 </div>
             </div>

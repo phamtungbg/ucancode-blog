@@ -57,7 +57,7 @@
                                             <td>{{$item->id}}</td>
                                             <td>
                                                 <div class="row">
-                                                    <div class="col-md-3"><img src="/{{$item->img}}" alt="Hình ảnh"
+                                                    <div class="col-md-3"><img  @if ($item->img) src="/{{$item->img}}" @else src="/upload/no-img.jpg" @endif alt="Hình ảnh"
                                                             width="100px" class="thumbnail"></div>
                                                     <div class="col-md-9">
                                                         <p> <strong>{{$item->title}}</strong> </p>

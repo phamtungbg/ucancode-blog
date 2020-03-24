@@ -46,7 +46,7 @@
                                     <input id="img" type="file" name="img" class="form-control hidden"
                                         onchange="changeImg(this)">
                                     <img id="avatar" class="thumbnail" width="100%" height="325px"
-                                        src="upload/import-img.png">
+                                        src="/upload/import-img.png">
                                         {{showErrors($errors,'img')}}
                                 </div>
                             </div>

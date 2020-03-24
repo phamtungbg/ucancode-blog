@@ -37,5 +37,17 @@ function showCate($cate,$parent,$tab){
 
 		    showCate($cate,$value['id'],$tab.'--|');
 		}
-	}
+    }
+}
+
+function getSlide($arr){
+    echo '<ol class="carousel-indicators">';
+    foreach ($arr as $key => $value) {
+        if ($key==0) {
+            echo ' <li data-target="#carousel-example-2" data-slide-to="'.$key.'" class="active"></li>';
+        } else {
+            echo ' <li data-target="#carousel-example-2" data-slide-to="'.$key.'"></li>';
+        }
+    }
+    echo '</ol>';
 }

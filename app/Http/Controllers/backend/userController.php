@@ -45,7 +45,12 @@ class userController extends Controller
     function postEditUser($userId,editUserRequest $r){
         $user=User::find($userId);
         $user->email=$r->email;
+        if ($r->password) {
+            if (mb_strlen($r->password, 'UTF-8') < 6) {
+                return redirect()->back()->withErrors(['password'=>'Password không được ít hơn 6 ký tự']);
+            }
         $user->password=bcrypt($r->password);
+        }
         $user->full_name=$r->full_name;
         $user->info = $r->info;
         $user->save();
