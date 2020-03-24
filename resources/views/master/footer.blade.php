@@ -29,11 +29,11 @@
                 <div class="category">
                     <h3>CATEGORIES</h3>
                     <ul>
-                        @foreach ($categories as $item)
+                        @foreach ($category as $item)
                         <li class="cat-item cat-item-38"><a
                             href="/{{$item->slug}}-{{$item->id}}.html"
                             title="{{$item->name}}">{{$item->name}}</a>
-                        <span>{{$item->blog->count()}}</span>
+                        <span>{{blogCount($item,$categories,0)}}</span>
                         </li>
 
                         @endforeach

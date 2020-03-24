@@ -10,12 +10,28 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
                 <ul class="navbar-nav ml-auto">
                     @foreach ($category as $item)
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/{{$item->slug}}-{{$item->id}}.html">
-                            {{-- <i class="fas fa-home"></i> --}}
-                             {{$item->name}}
-                        </a>
-                    </li>
+                            @if (in_array($item->id,$parentArr))
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-{{$item->id}}" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">{{$item->name}} </a>
+
+                                <div class="dropdown-menu dropdown-menu-right dropdown-info"
+                                    aria-labelledby="navbarDropdownMenuLink-{{$item->id}}">
+                                    @foreach ($categories as $row)
+                                        @if ($row->parent==$item->id)
+                                        <a class="dropdown-item" href="/{{$row->slug}}-{{$row->id}}.html"> {{$row->name}}</a>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </li>
+                            @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="/{{$item->slug}}-{{$item->id}}.html">
+                                    {{-- <i class="fas fa-home"></i> --}}
+                                     {{$item->name}}
+                                </a>
+                            </li>
+                            @endif
                     @endforeach
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"

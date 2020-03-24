@@ -40,5 +40,12 @@ function showCate($cate,$parent,$tab){
     }
 }
 
-
+function blogCount($cateParent,$cateChild,$blog){
+    foreach ($cateChild as $item) {
+        if ($cateParent['id'] == $item['parent']) {
+            $blog = $blog+ $item->blog->count();
+        }
+    }
+    return $blog;
+}
 

@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 class blogController extends Controller
 {
     function getBlog($blogSlug){
+        $parentArr = [];
+        $cate = category::where('parent','<>',0)->get();
+        foreach ($cate as $item) {
+            array_push($parentArr,$item['parent']);
+        }
+        $data['parentArr'] = $parentArr;
         $arr = explode('-',$blogSlug);
         $id = array_pop($arr);
         $data['blog'] = blog::find($id);

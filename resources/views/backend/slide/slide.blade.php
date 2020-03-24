@@ -65,13 +65,14 @@
             var file = [];
             for (let i = 1; i <= lastId; i++) {
                 let img = $("#avatar"+i).attr('src')
-                if ( img == "/upload/import-img.png") {
+                if (img.split(".", 1)[0] == "/upload/import-img" || img.split(".", 1)[0] == "/upload/slide-"+i)
+                {
                     file.push("");
                 }else{
                     file.push(img);
                 }
         };
-        // console.log(file);
+        console.log(file);
         $.post(
             "/admin/slide/upload",
             {file:file, _token:"{{ csrf_token() }}"},

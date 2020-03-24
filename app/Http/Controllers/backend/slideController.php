@@ -15,10 +15,9 @@ class slideController extends Controller
     }
 
     function uploadSlide(request $r){
-        $data = [];
+
         foreach ($r->file as $key=>$value) {
             $id = $key+1;
-
             if ($value) {
                 list($extension, $image ) = explode(';', $value );
                 list(, $image ) = explode(',', $image);
@@ -39,6 +38,7 @@ class slideController extends Controller
                     $slide->save();
                 }
                 file_put_contents('upload/'.$fileName,$image);
+                $id='';
             }
         }
         return 'success';
