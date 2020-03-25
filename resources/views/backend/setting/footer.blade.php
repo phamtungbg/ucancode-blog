@@ -83,11 +83,7 @@
             <span>Copyright ©2020 Bản quyền thuộc Eduvie.vn</span>
         </div>
     </footer>
-    <div class="row">
-        <div class="col-md-3 col-md-offset-9">
-            <button id="sbm" class="btn btn-success" type="submit">Xác nhận</button>
-        </div>
-    </div>
+
 
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -100,94 +96,33 @@
             $(".form-row").hide();
             $("#describe-text").hide();
             $("#describe-h2").hide();
-            $("body").click(function (e) {
-                var target = $(e.target);
-                if (target.is("#describe-p")) {
-                    if ($("h2").hide()) {
-                        $("h2").html($("#describe-h2").val())
-                        $("#describe-h2").hide();
-                        $("h2").show();
-                    }
-                    if ($(".form-row").show()) {
-                        $(".form-row").hide()
-                    }
-                    $("#describe-text").val($("#describe-p").html());
-                    $("#describe-p").hide();
-                    $("#describe-text").show();
-                } else if (target.is("#describe-text")) {
-                    console.log('abc');
-                } else if (target.is("#describe-h2")) {
-                    console.log('abc');
-                } else if (target.is(".form-control")) {
-                    console.log('abc');
-                } else if (target.is(".add-icon")) {
-                    if ($("#describe-p").hide()) {
-                        $("#describe-p").html($("#describe-text").val())
-                        $("#describe-p").show();
-                        $("#describe-text").hide();
-                    }
-                    if ($("h2").hide()) {
-                        $("h2").html($("#describe-h2").val())
-                        $("#describe-h2").hide();
-                        $("h2").show();
-                    }
-                    $(".form-row").toggle();
-                } else if (target.is("h2")) {
-                    if ($("#describe-p").hide()) {
-                        $("#describe-p").html($("#describe-text").val())
-                        $("#describe-p").show();
-                        $("#describe-text").hide();
-                    }
-
-                    if ($(".form-row").show()) {
-                        $(".form-row").hide()
-                    }
-                    $("#describe-h2").val($("h2").html())
-                    $("#describe-h2").show();
-                    $("h2").hide();
-                } else if (target.is(".edit-icon")) {
-                    if ($("#describe-p").hide()) {
-                        $("#describe-p").html($("#describe-text").val())
-                        $("#describe-p").show();
-                        $("#describe-text").hide();
-                    }
-                    if ($("h2").hide()) {
-                        $("h2").html($("#describe-h2").val())
-                        $("#describe-h2").hide();
-                        $("h2").show();
-                    }
-                    var id = target.attr("name");
-                    $.post(
-                        "/admin/footer/edit-icon", {
-                            "_token": "{{ csrf_token() }}",
-                            id: id
-                        },
-                        function (data) {
-                            // console.log(data.icon);
-                            $("#icon-id").val(data.id);
-                            $("#icon").val(data.icon);
-                            $("#icon-link").val(data.icon_link);
-                        }
-                    )
-                    $(".form-row").toggle();
-                } else {
-                    if ($("#describe-p").hide()) {
-                        $("#describe-p").html($("#describe-text").val())
-                        $("#describe-p").show();
-                        $("#describe-text").hide();
-                    }
-                    if ($("h2").hide()) {
-                        $("h2").html($("#describe-h2").val())
-                        $("#describe-h2").hide();
-                        $("h2").show();
-                    }
-                    if ($(".form-row").show()) {
-                        $(".form-row").hide();
-                    }
-                }
-            });
         })
 
+        $(".edit-icon").click(function(e){
+            var target = $(e.target);
+            if (target.is("i")) {
+                var id =  target.parent().attr("name");
+            }else{
+                var id =  target.attr("name");
+            }
+
+            console.log(id);
+
+            $.post(
+                "/admin/footer/edit-icon", {
+                    "_token": "{{ csrf_token() }}",
+                    id: id
+                },
+                function (data) {
+                    // console.log(data.icon);
+                    $("#icon-id").val(data.id);
+                    $("#icon").val(data.icon);
+                    $("#icon-link").val(data.icon_link);
+                }
+            )
+
+            $(".form-row").toggle(250);
+        })
         $("#icon-sbm").click(function (e) {
             e.preventDefault()
             var id = $("#icon-id").val(),
@@ -212,27 +147,44 @@
 
         })
 
-        $("#sbm").click(function (e) {
-            e.preventDefault()
-            var title_footer = $("h2").html(),
-                describe_footer = $("#describe-p").html();
-            // console.log(title_footer);
-
-            $.post(
-                "/admin/footer", {
-                    "_token": "{{ csrf_token() }}",
-                    title_footer: title_footer,
-                    describe_footer: describe_footer
-                },
-                function (data) {
-                    if (data == 'success') {
-                        console.log(data);
-                        location.reload();
-                    }
-                }
-            )
-
+        $("body").click(function(e){
+            var target = $(e.target);
+            if (target.is("h2")) {
+                $("h2,#describe-h2").toggle();
+            } else if(target.is("#describe-h2")) {
+            }else{
+                $("h2").show();
+                $("#describe-h2").hide();
+            }
+            if (target.is("#describe-p")) {
+                $("#describe-p,#describe-text").toggle();
+            } else if(target.is("#describe-text")) {
+            }else{
+                $("#describe-p").show();
+                $("#describe-text").hide();
+            }
         })
+
+        $("#describe-h2,#describe-text").change(function(){
+            var title_footer = $("#describe-h2").val(),
+            describe_footer = $("#describe-text").val();
+                console.log(title_footer);
+
+                $.post(
+                    "/admin/footer", {
+                        "_token": "{{ csrf_token() }}",
+                        title_footer: title_footer,
+                        describe_footer: describe_footer
+                    },
+                    function (data) {
+                        if (data == 'success') {
+                            console.log(data);
+                            location.reload();
+                        }
+                    }
+                )
+        })
+
 
     </script>
 
