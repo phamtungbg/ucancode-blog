@@ -54,7 +54,7 @@
                                     href="{{$item->icon_link}}">{!!$item->icon!!}</a></li>
                             @endforeach
                             <li><a onclick="return false" class="add-icon" href="/"><i
-                                        class="fas fa-plus-square add-icon"></i><span>add</span></a></li>
+                                        class="fas fa-plus-square"></i></a></li>
                         </ul>
                     </nav>
 
@@ -72,6 +72,7 @@
                         <div class="col">
                             <input type="hidden" id="icon-id" value="">
                             <button id="icon-sbm" class="btn btn-success frm" type="submit">Xác nhận</button>
+                            <button id="icon-del" class="btn btn-danger del" type="submit">Xóa</button>
                         </div>
                     </div>
 
@@ -96,6 +97,14 @@
             $(".form-row").hide();
             $("#describe-text").hide();
             $("#describe-h2").hide();
+            $("#icon-del").hide();
+        })
+        $(".add-icon").click(function(){
+            $("#icon-id").val('');
+            $("#icon").val('');
+            $("#icon-link").val('');
+            $("#icon-del").hide();
+            $(".form-row").toggle(250)
         })
 
         $(".edit-icon").click(function(e){
@@ -120,8 +129,10 @@
                     $("#icon-link").val(data.icon_link);
                 }
             )
-
             $(".form-row").toggle(250);
+            if ($(".form-row").is(":visible")) {
+                $("#icon-del").show(250);
+            }
         })
         $("#icon-sbm").click(function (e) {
             e.preventDefault()
@@ -140,6 +151,24 @@
                     if (data == 'success') {
                         console.log(data);
 
+                        location.reload();
+                    }
+                }
+            )
+
+        })
+        $("#icon-del").click(function (e) {
+            e.preventDefault()
+            var id = $("#icon-id").val();
+
+            $.post(
+                "/admin/footer/del-icon", {
+                    "_token": "{{ csrf_token() }}",
+                    id: id,
+                },
+                function (data) {
+                    if (data == 'success') {
+                        // console.log(data);
                         location.reload();
                     }
                 }

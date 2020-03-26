@@ -45,6 +45,10 @@ class footerController extends Controller
             $icon->save();
             return 'success';
     }
+    function delIcon(Request $r){
+        socialIcon::find($r->id)->delete();
+        return 'success';
+    }
 
 
 }
