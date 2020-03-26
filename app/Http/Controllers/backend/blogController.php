@@ -48,34 +48,36 @@ class blogController extends Controller
         return view('backend.blog.editblog',$data);
     }
     function postEditBlog(Request $r,$blogId){
-        $blog = blog::find($blogId);;
-        $blog->title=$r->title;
+        $blog = blog::find($blogId);
         $blog->describe=$r->describe;
         $blog->content=$r->content;
         $blog->slug_title=Str::slug($r->title, '-');
         $blog->the_tag=$r->the_tag;
         $blog->cate_id=$r->category;
         $blog->user_id=Auth::user()->id;
+
         if ($r->hasFile('img')) {
             if ($blog->img) {
                 unlink($blog->img);
             }
             $file = $r->img;
-            $fileName=Str::slug($r->title, '-').'.'.$blog->id.'.'.$file->extension();
+            $fileName=Str::slug($r->title, '-').'.'.$blogId.'.'.$file->extension();
             $path = $file->storeAs('upload',$fileName,'upload');
             $blog->img =  $path;
         }else{
-            if($r->title!=''){
-                $file = $blog->link_anh ;
-                // dd(pathinfo($file)['extension']);
-                $extFile =pathinfo($file)['extension'];
-                $fileName = Str::slug($r->title, '-').'-'.$blogId.'.'.$extFile;
-                rename(public_path($file),public_path('upload/'. $fileName));
-                $blog->img = 'upload/'.$fileName;
+            if($r->title!= $blog->title){
+                if ($r->img) {
+                    $file = $blog->img ;
+                    $extFile =pathinfo($file)['extension'];
+                    $fileName = Str::slug($r->title, '-').'-'.$blogId.'.'.$extFile;
+                    rename(public_path($file),public_path('upload/'. $fileName));
+                    $blog->img = 'upload/'.$fileName;
+                }
             }
+        }
+        $blog->title=$r->title;
         $blog->save();
         return redirect('/admin/blog')->with('thongBao','Đã sửa thành công');
-        }
     }
 
     function delBlog($blogId){
