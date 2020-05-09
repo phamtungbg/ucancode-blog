@@ -31,10 +31,15 @@
                                         value="{{$blog->title}}">
                                         {{showErrors($errors,'title')}}
                                 </div>
+
                                 <div class="form-group">
+
                                     <label>Tags</label>
-                                    <input type="text" name="the_tag" class="form-control" value="{{$blog->the_tag}}">
+
+                                <input type="text" name="the_tag" class="form-control" @if ($blog->the_tag) value="@foreach(json_decode($blog->the_tag) as $item){{$item}},@endforeach" @endif placeholder="bóng đá,thể thao,AFF,...">
+
                                 </div>
+
                                 <div class="form-group">
                                     <label>Mô tả</label>
                                     <textarea  class="editor" name="describe"
